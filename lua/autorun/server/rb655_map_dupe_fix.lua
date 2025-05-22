@@ -1,5 +1,5 @@
 
-resource.AddWorkshop( "104619813" )
+resource.AddWorkshop( "3486018466" )
 
 hook.Add( "EntityKeyValue", "rb655_keyval_fix", function( ent, key, val )
 
