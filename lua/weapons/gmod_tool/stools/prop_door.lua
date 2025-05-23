@@ -327,6 +327,8 @@ function TOOL:LeftClick( trace )
 	if ( self:GetClientNumber( "auto_close" ) <= 0 ) then auto_close_delay = -1 end
 
 	local mdl = self:GetClientInfo( "model" )
+	if not list.HasEntry("DoorModels", mdl) or not util.IsValidModel(mdl) then return false end
+
 	local kO = self:GetClientNumber( "key_open" )
 	local kC = self:GetClientNumber( "key_close" )
 	local kL = self:GetClientNumber( "key_lock" )
