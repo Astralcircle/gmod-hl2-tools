@@ -147,7 +147,6 @@ if ( SERVER ) then
 
 	function MakeDoorRotating( ply, model, pos, ang, _oSkin, keyOpen, keyClose, keyLock, keyUnlock, _oHardware, _oDistance, _oSpeed, _oReturnDelay, breakable, _oTargetName, data, mapCreationID )
 
-		if not list.HasEntry("DoorModels", mdl) or not util.IsValidModel(mdl) then return nil end
 		if ( IsValid( ply ) and !ply:CheckLimit( "prop_doors" ) ) then return nil end
 
 		local prop_door_rotating = ents.Create( "prop_door_rotating" )
@@ -268,6 +267,7 @@ if ( SERVER ) then
 	function MakeDoorDynamic( ply, model, pos, ang, keyOpen, keyClose, keyLock, keyUnlock, auto_close_delay, skin, mapCreationID )
 
 		if ( IsValid( ply ) and !ply:CheckLimit( "prop_doors" ) ) then return false end
+		if not list.HasEntry("DoorModels", mdl) then return false end
 
 		local prop_door_dynamic = ents.Create( "prop_door_dynamic" )
 		if ( !IsValid( prop_door_dynamic ) ) then return false end
@@ -328,7 +328,7 @@ function TOOL:LeftClick( trace )
 	if ( self:GetClientNumber( "auto_close" ) <= 0 ) then auto_close_delay = -1 end
 
 	local mdl = self:GetClientInfo( "model" )
-	if not list.HasEntry("DoorModels", mdl) or not util.IsValidModel(mdl) then return false end
+	if not list.HasEntry("DoorModels", mdl) then return false end
 
 	local kO = self:GetClientNumber( "key_open" )
 	local kC = self:GetClientNumber( "key_close" )
@@ -360,10 +360,13 @@ function TOOL:LeftClick( trace )
 			gDoorUniqueID = gDoorUniqueID + 1
 
 			prop_door2 = MakeDoorRotating( ply, mdl, trace.HitPos, ang2, doorSkin, kO, kC, kL, kU, rH, rD, rS, auto_close_delay, breakable, name )
-			prop_door:SetKeyValue( "targetname", name )
-			prop_door.rb655_dupe_data.targetname = name
 
-			self:FixRotatingPos( prop_door2 )
+			if IsValid(prop_door2) then
+				prop_door:SetKeyValue( "targetname", name )
+				prop_door.rb655_dupe_data.targetname = name
+	
+				self:FixRotatingPos( prop_door2 )
+			end
 		end
 	end
 
