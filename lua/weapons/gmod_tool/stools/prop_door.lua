@@ -148,6 +148,7 @@ if ( SERVER ) then
 	function MakeDoorRotating( ply, model, pos, ang, _oSkin, keyOpen, keyClose, keyLock, keyUnlock, _oHardware, _oDistance, _oSpeed, _oReturnDelay, breakable, _oTargetName, data, mapCreationID )
 
 		if ( IsValid( ply ) and !ply:CheckLimit( "prop_doors" ) ) then return nil end
+		if not list.HasEntry("DoorModels", model) then return nil end
 
 		local prop_door_rotating = ents.Create( "prop_door_rotating" )
 		if ( !IsValid( prop_door_rotating ) ) then return false end
@@ -267,7 +268,7 @@ if ( SERVER ) then
 	function MakeDoorDynamic( ply, model, pos, ang, keyOpen, keyClose, keyLock, keyUnlock, auto_close_delay, skin, mapCreationID )
 
 		if ( IsValid( ply ) and !ply:CheckLimit( "prop_doors" ) ) then return false end
-		if not list.HasEntry("DoorModels", mdl) then return false end
+		if not list.HasEntry("DoorModels", model) then return false end
 
 		local prop_door_dynamic = ents.Create( "prop_door_dynamic" )
 		if ( !IsValid( prop_door_dynamic ) ) then return false end
