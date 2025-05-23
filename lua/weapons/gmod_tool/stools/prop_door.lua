@@ -353,7 +353,7 @@ function TOOL:LeftClick( trace )
 		prop_door = MakeDoorRotating( ply, mdl, trace.HitPos, ang, doorSkin, kO, kC, kL, kU, rH, rD, rS, auto_close_delay, breakable )
 		self:FixRotatingPos( prop_door )
 
-		if ( self:GetClientNumber( "r_double" ) == 1 ) then
+		if ( IsValid( prop_door ) and self:GetClientNumber( "r_double" ) == 1 ) then
 			local ang2 = Angle( ang ) -- Make a copy
 			ang2:RotateAroundAxis( Vector( 0, 0, 1 ), 180 )
 
@@ -361,13 +361,10 @@ function TOOL:LeftClick( trace )
 			gDoorUniqueID = gDoorUniqueID + 1
 
 			prop_door2 = MakeDoorRotating( ply, mdl, trace.HitPos, ang2, doorSkin, kO, kC, kL, kU, rH, rD, rS, auto_close_delay, breakable, name )
+			prop_door:SetKeyValue( "targetname", name )
+			prop_door.rb655_dupe_data.targetname = name
 
-			if IsValid(prop_door2) then
-				prop_door:SetKeyValue( "targetname", name )
-				prop_door.rb655_dupe_data.targetname = name
-	
-				self:FixRotatingPos( prop_door2 )
-			end
+			self:FixRotatingPos( prop_door2 )
 		end
 	end
 
