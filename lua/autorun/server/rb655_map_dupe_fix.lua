@@ -1,22 +1,9 @@
 
-resource.AddWorkshop( "104619813" )
+resource.AddWorkshop( "3486018466" )
 
 hook.Add( "EntityKeyValue", "rb655_keyval_fix", function( ent, key, val )
 
-	if ( ent:GetClass() == "env_headcrabcanister" ) then
-
-		if ( key == "HeadcrabType" ) then ent.headcrab = val end
-		if ( key == "HeadcrabCount" ) then ent.count = val end
-		if ( key == "FlightSpeed" ) then ent.speed = val end
-		if ( key == "FlightTime" ) then ent.time = val end
-		if ( key == "StartingHeight" ) then ent.height = val end
-		if ( key == "Damage" ) then ent.damage = val end
-		if ( key == "DamageRadius" ) then ent.radius = val end
-		if ( key == "SmokeLifetime" ) then ent.duration = val end
-		if ( key == "spawnflags" ) then ent.spawnflags = val end
-		if ( key == "targetname" ) then ent.targetname = val end
-
-	elseif ( ent:GetClass() == "prop_thumper" ) then
+	if ( ent:GetClass() == "prop_thumper" ) then
 
 		if ( key == "dustscale" ) then ent.dustscale = val end
 		if ( key == "targetname" ) then ent.targetname = val end
@@ -45,17 +32,6 @@ hook.Add( "EntityKeyValue", "rb655_keyval_fix", function( ent, key, val )
 			self.rb655_door_opened = self:GetInternalVariable( "m_eDoorState" ) != 0
 			self.rb655_door_locked = self:GetInternalVariable( "m_bLocked" )
 		end
-
-	elseif ( ent:GetClass() == "item_ammo_crate" ) then
-
-		if ( key == "AmmoType" ) then ent.type = val end
-
-	elseif ( ent:GetClass() == "item_item_crate" ) then
-
-		if ( key == "ItemCount" ) then ent.amount = val end
-		if ( key == "ItemClass" ) then ent.class = val end
-		if ( key == "CrateAppearance" ) then ent.appearance = val end
-		if ( key == "targetname" ) then ent.targetname = val end
 
 	end
 
